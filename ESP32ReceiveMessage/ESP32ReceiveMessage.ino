@@ -1,13 +1,4 @@
-/*---------------------------------------------------------------------------------------------
 
-  Open Sound Control (OSC) library for the ESP8266/ESP32
-
-  Example for receiving open sound control (OSC) messages on the ESP8266/ESP32
-  Send integers '0' or '1' to the address "/led" to turn on/off the built-in LED of the esp8266.
-
-  This example code is in the public domain.
-
---------------------------------------------------------------------------------------------- */
 #ifdef ESP8266
 #include <ESP8266WiFi.h>
 #else
@@ -17,6 +8,37 @@
 #include <OSCMessage.h>
 #include <OSCBundle.h>
 #include <OSCData.h>
+
+
+#include <M5Stack.h>
+
+#define NOTE_D0 -1
+#define NOTE_D1 294
+#define NOTE_D2 330
+#define NOTE_D3 350
+#define NOTE_D4 393
+#define NOTE_D5 441
+#define NOTE_D6 495
+#define NOTE_D7 556
+
+#define NOTE_DL1 147
+#define NOTE_DL2 165
+#define NOTE_DL3 175
+#define NOTE_DL4 196
+#define NOTE_DL5 221
+#define NOTE_DL6 248
+#define NOTE_DL7 278
+
+#define NOTE_DH1 589
+#define NOTE_DH2 661
+#define NOTE_DH3 700
+#define NOTE_DH4 786
+#define NOTE_DH5 882
+#define NOTE_DH6 990
+#define NOTE_DH7 112
+
+
+
 
 char ssid[] = "Nimbus";          // your network SSID (name)
 char pass[] = "richNotComplex";                    // your network password
@@ -40,6 +62,11 @@ unsigned int ledState = LOW;              // LOW means led is *on*
 #endif
 
 void setup() {
+    M5.begin();
+  
+  M5.Lcd.printf("M5Stack Speaker test:\r\n");
+  M5.Speaker.setVolume(10);
+  
   pinMode(BUILTIN_LED, OUTPUT);
   digitalWrite(BUILTIN_LED, ledState);    // turn *on* led
 
@@ -79,6 +106,8 @@ void led(OSCMessage &msg) {
   digitalWrite(BUILTIN_LED, ledState);
   Serial.print("/led: ");
   Serial.println(ledState);
+    M5.Speaker.playMusic(m5stack_startup_music, 25000);
+
 }
 
 void loop() {

@@ -99,7 +99,7 @@ prevAX = currAX;
 prevAY = currAY;
 prevAZ = currAZ;
 
-if(mag > 6){
+if(mag > 3){
   int now = millis();
   if(now-lastTap > 300){
     //Tap detected
