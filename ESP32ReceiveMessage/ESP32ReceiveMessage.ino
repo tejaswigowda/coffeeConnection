@@ -102,12 +102,11 @@ void setup() {
 
 
 void led(OSCMessage &msg) {
-  ledState = msg.getInt(0);
-  digitalWrite(BUILTIN_LED, ledState);
-  Serial.print("/led: ");
-  Serial.println(ledState);
-    M5.Speaker.playMusic(m5stack_startup_music, 25000);
+  int vol = msg.getInt(0);
+  if(vol > 10) vol = 10;
+    M5.Speaker.setVolume(vol);
 
+    M5.Speaker.playMusic(m5stack_startup_music, 25000);
 }
 
 void loop() {
@@ -119,7 +118,7 @@ void loop() {
       msg.fill(Udp.read());
     }
     if (!msg.hasError()) {
-      msg.dispatch("/a/led", led);
+      msg.dispatch("/c/play", led);
     } else {
      // error = msg.getError();
      // Serial.print("error: ");

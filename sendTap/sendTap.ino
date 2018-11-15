@@ -103,7 +103,7 @@ if(mag > 3){
   int now = millis();
   if(now-lastTap > 300){
     //Tap detected
-    OSCMessage msg("/a/tap");
+    OSCMessage msg("/b/tap");
     msg.add(mag);
     Udp.beginPacket(outIp, outPort);
     msg.send(Udp);
