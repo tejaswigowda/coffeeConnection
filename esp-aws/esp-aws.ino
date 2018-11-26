@@ -1,3 +1,7 @@
+//7072a0821840baaff27338c0f4ca8a0cd4276c43c08a7fcfde7c55492d7135bf
+
+
+
 
 #include <AWS_IOT.h>
 #include <WiFi.h>
@@ -16,9 +20,9 @@ char* generateClientID () {
 
 AWS_IOT hornbill;   // AWS_IOT instance
 
-char WIFI_SSID[]="AriGrading";
+char WIFI_SSID[]="Tejaswi";
 char WIFI_PASSWORD[]="12345678";
-char HOST_ADDRESS[]="aib4uv366vh79-ats.iot.us-east-1.amazonaws.com";
+char HOST_ADDRESS[]="a1utoox4w9oy4a-ats.iot.us-west-2.amazonaws.com";
 char *CLIENT_ID= generateClientID();
 char TOPIC_NAME[]= "$aws/things/cup_prototype/shadow/update";
 

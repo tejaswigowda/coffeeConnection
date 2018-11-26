@@ -10,6 +10,8 @@
 #include <OSCData.h>
 
 
+const char* host = "52.12.175.60";
+
 #include <M5Stack.h>
 
 #define NOTE_D0 -1
@@ -40,8 +42,8 @@
 
 
 
-char ssid[] = "Nimbus";          // your network SSID (name)
-char pass[] = "richNotComplex";                    // your network password
+char ssid[] = "Tejaswi";          // your network SSID (name)
+char pass[] = "12345678";                    // your network password
 
 // A UDP instance to let us send and receive packets over UDP
 WiFiUDP Udp;
@@ -100,6 +102,12 @@ void setup() {
 
 }
 
+void setled(int vol) {
+  if(vol > 10) vol = 10;
+    M5.Speaker.setVolume(vol);
+
+    M5.Speaker.playMusic(m5stack_startup_music, 25000);
+}
 
 void led(OSCMessage &msg) {
   int vol = msg.getInt(0);
@@ -110,19 +118,47 @@ void led(OSCMessage &msg) {
 }
 
 void loop() {
-  OSCMessage msg;
-  int size = Udp.parsePacket();
+   // Use WiFiClient class to create TCP connections
+  WiFiClient client;
+  const int httpPort = 80;
+  if (!client.connect(host, httpPort)) {
+    Serial.println("connection failed");
+    return;
+  }
 
-  if (size > 0) {
-    while (size--) {
-      msg.fill(Udp.read());
-    }
-    if (!msg.hasError()) {
-      msg.dispatch("/c/play", led);
-    } else {
-     // error = msg.getError();
-     // Serial.print("error: ");
-     // Serial.println(error);
+  // We now create a URI for the request
+  String path = "/getValue";
+
+
+  Serial.print("Requesting URL: ");
+  Serial.println(path);
+
+  // This will send the request to the server
+  client.print(String("GET ") + path + " HTTP/1.1\r\n" +
+               "Host: " + host + "\r\n" +
+               "Connection: close\r\n\r\n");
+  unsigned long timeout = millis();
+  while (client.available() == 0) {
+    if (millis() - timeout > 5000) {
+      Serial.println(">>> Client Timeout !");
+      client.stop();
+      return;
     }
   }
+
+  // Read all the lines of the reply from server and print them to Serial
+  int count = 0;
+ 
+  while (client.available()) {
+    String line = client.readStringUntil('\r');
+    if(count == 8){
+      float val = line.toFloat();
+      setled(val);
+      Serial.println(count);
+      Serial.println(line);
+    }
+    count ++;
+  }
+
+  Serial.println();
 }

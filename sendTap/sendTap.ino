@@ -27,11 +27,11 @@ float currAZ = 0;
 #include <WiFiUdp.h>
 #include <OSCMessage.h>
 
-char ssid[] = "Nimbus";          // your network SSID (name)
-char pass[] = "richNotComplex";                    // your network password
+char ssid[] = "Tejaswi";          // your network SSID (name)
+char pass[] = "12345678";                    // your network password
 
 WiFiUDP Udp;                                // A UDP instance to let us send and receive packets over UDP
-const IPAddress outIp(10,0,1,255);        // remote IP of your computer
+const IPAddress outIp(192,168,2,255);        // remote IP of your computer
 const unsigned int outPort = 24333;          // remote port to receive OSC
 const unsigned int localPort = 8888;        // local port to listen for OSC packets (actually not used for sending)
 
