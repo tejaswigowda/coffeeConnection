@@ -27,8 +27,8 @@ float currAZ = 0;
 #include <WiFiUdp.h>
 #include <OSCMessage.h>
 
-char ssid[] = "Tejaswi";          // your network SSID (name)
-char pass[] = "12345678";                    // your network password
+char ssid[] = "AriGrading";          // your network SSID (name)
+char pass[] = "";                    // your network password
 
 WiFiUDP Udp;                                // A UDP instance to let us send and receive packets over UDP
 const IPAddress outIp(192,168,2,255);        // remote IP of your computer

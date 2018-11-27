@@ -42,8 +42,8 @@ const char* host = "52.12.175.60";
 
 
 
-char ssid[] = "Tejaswi";          // your network SSID (name)
-char pass[] = "12345678";                    // your network password
+char ssid[] = "AriGrading";          // your network SSID (name)
+char pass[] = "";                    // your network password
 
 // A UDP instance to let us send and receive packets over UDP
 WiFiUDP Udp;
@@ -154,8 +154,7 @@ void loop() {
     if(count == 8){
       float val = line.toFloat();
       setled(val);
-      Serial.println(count);
-      Serial.println(line);
+
     }
     count ++;
   }
