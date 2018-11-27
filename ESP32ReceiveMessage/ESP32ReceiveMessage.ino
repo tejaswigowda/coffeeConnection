@@ -47,7 +47,7 @@ char pass[] = "";                    // your network password
 
 // A UDP instance to let us send and receive packets over UDP
 WiFiUDP Udp;
-const IPAddress outIp(10,0,1,255);        // remote IP (not needed for receive)
+const IPAddress outIp(192,168,43,255);        // remote IP (not needed for receive)
 const unsigned int outPort = 9999;          // remote port (not needed for receive)
 const unsigned int localPort = 8888;        // local port to listen for UDP packets (here's where we send the packets)
 
